@@ -1,0 +1,39 @@
+
+.sign-in {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    width: 35rem;
+    
+   
+    &__form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1.5rem;
+        justify-content: center;
+        align-items: center;
+       width: 95%;
+    }
+   
+}
+
+.logo {
+    width: 100%;
+    margin-top: 3rem;
+}
+
+
+@media only screen and (max-height: 520px) {
+    .sign-in {
+        width: 70%;
+    }
+  }
+
+.button {
+    width: 80px;
+    color: gold;
+    background-color: white
+        
+}

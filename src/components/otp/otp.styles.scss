@@ -1,0 +1,72 @@
+
+.otp {
+    background-image: url('../../assets/sign-in/sign-in-page-background.jpeg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 99999;
+    background-color: red;
+    height: 100vh;
+
+    width: 100%;
+
+
+    .sms-input {
+        width: 70%;
+        height: 20rem;
+        display: flex;
+        justify-content: center;
+        color: grey;
+        flex-direction: column;
+        font-size: 1.28rem;
+        align-items: center;
+        margin-top: 4rem;
+    }
+
+}
+
+.timer-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: .8rem;
+  margin-bottom: 1rem;
+
+}
+
+@media only screen and (max-width: 600px) {
+    
+    .otp .sms-input {
+        width: 70%;
+        
+    }
+  }
+
+  @media only screen and (min-width: 900px) {
+    
+    .otp .sms-input {
+        width: 20%;
+    }
+  }
+
+
+
+
+
+// in-order to hide the arrow for number type HTML inputs
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

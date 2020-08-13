@@ -1,0 +1,36 @@
+.loading-spinner {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(21,21,21,.53);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    .loading-spinner__cart {
+        color: #ffffff;
+      
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        .loading-spinner__cart-text {
+            position: absolute;
+            bottom: .5rem;
+            font-size: 1.3rem;
+        }
+        
+    }
+}
+
+.loading-spinner__image {
+    width: 37%;
+    border-radius: 2rem;
+    box-shadow: 0 0 10px 5px rgba(111, 110, 110, 0.335);
+    
+
+}

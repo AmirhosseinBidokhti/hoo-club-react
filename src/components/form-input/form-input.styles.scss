@@ -1,0 +1,50 @@
+.form-input {
+
+    color: #fff;
+    width: 90%;
+    height: 4rem;
+    border-radius: .9rem;
+    padding: 1.5rem;
+
+    font-size: 1.4rem;
+
+    
+    
+    
+    background-color: transparent;
+    border: .1rem solid orange;
+    
+    box-shadow: 0rem 0rem 2rem rgba($color: #ffff, $alpha: .2);
+
+    transition: all .3s;
+  
+    &:focus {
+        outline: none;
+        background-color: rgba(29, 27, 27, 0.555);
+        box-shadow: 0 0 10px rgba(176, 150, 2, 0.794);
+        
+    }
+
+    
+    &:nth-of-type(2) {
+        margin-top: 1.3rem;
+    }
+
+    
+}
+
+.test-button {
+    width: 100px;
+    height: 30px;
+    margin-top: 5px;
+    background-color: gold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+// media queries for form-input on sign-in page
+
+@media only screen and (max-width: 600px) {
+    
+  }

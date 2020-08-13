@@ -1,0 +1,15 @@
+.sign-in-page {
+    background-color: #000000; // in case the image could not be fetched
+    height: 100vh;
+    background-image: url('../../assets/sign-in/sign-in-page-background.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    width: 100%;
+    background-attachment: fixed;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    
+}
