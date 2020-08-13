@@ -49,12 +49,13 @@ class OTP extends React.Component {
     //     this.state.SMSCode
     //   }"}'}`
     // );
+    // console.log("Bearer  " + this.props.token);
     // POST request using fetch with error handling
     const requestOptions = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        authorization: "bearer  " + this.props.token,
+        authorization: "Bearer  " + this.props.token,
       },
       body: `{"Params":'{"UserID":"${this.props.user_id.toString()}","OTP":"${
         this.state.SMSCode
@@ -118,7 +119,7 @@ class OTP extends React.Component {
 
 const mapStateToProps = (state) => ({
   user_id: state.user.user_id,
-  token: state.access_token,
+  token: state.user.access_token,
 });
 
 const mapDispatchToProps = (dispatch) => ({
