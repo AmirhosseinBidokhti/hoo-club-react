@@ -3,8 +3,10 @@ import { userActionTypes } from './user.types';
 
 const INITIAL_STATE = {
     access_token: '',
-    user_id: null
-    
+    user_id: null,
+    firstName: '',
+    lastName: '',
+    memberID: ''
 }
 
 const userReducer = (state=INITIAL_STATE, action) => {
@@ -14,7 +16,18 @@ const userReducer = (state=INITIAL_STATE, action) => {
             return {
                 ...state,
                 access_token: action.payload.access_token,
-                user_id: action.payload.user_id
+                user_id: action.payload.user_id,
+                
+
+            }
+        
+        case userActionTypes.SET_OTP_DATA:
+            return {
+                ...state,
+                firstName: action.payload.firstName,
+                lastName: action.payload.lastName,
+                memberID: action.payload.memberID
+                
             }
 
         default:

@@ -1,10 +1,16 @@
 import React from "react";
 
+import { Redirect } from 'react-router';
+
 import { connect } from "react-redux";
 
 import FormInput from "../form-input/form-input.component";
 import { appConfig } from "../../api/api-endpoints";
+
 import { toggleSpinner } from "../../redux/loading-spinner/loading-spinner.actions";
+import { setCurrentUserOTP } from '../../redux/user/user.actions';
+
+import LoadingSpinner from '../loading-spinner/loading-spinner.component';
 
 import "./otp.styles.scss";
 
@@ -15,6 +21,8 @@ class OTP extends React.Component {
     this.state = {
       SMSCode: "",
       second: 120,
+      resend: false,
+      redirect: false
     };
   }
 
@@ -22,22 +30,33 @@ class OTP extends React.Component {
     const { name, value } = e.target;
 
     this.setState({ [name]: value }, () => console.log(this.state));
-
     console.log(this.props);
   };
 
+
   tick = () => {
-    if (this.state.second > 0) {
-      this.setState({ second: this.state.second - 1 });
+    this.setState({resend: false});
+    if(this.state.second > 0) {
+      this.setState(prevState => ({
+        second: prevState.second - 1,
+      }),()=>console.log(this.state))
     } else {
-      clearInterval(this.timer);
-      //window.location.reload();
+      this.setState({resend: true}, ()=> console.log(this.state))
     }
-  };
+     
+
+      //clearInterval(this.timer);
+      //window.location.reload();
+  }
 
   componentDidMount() {
     this.timer = setInterval(this.tick, 1000);
   }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
 
   submitHandler = (e) => {
     e.preventDefault();
@@ -65,7 +84,15 @@ class OTP extends React.Component {
     fetch(`${appConfig.apiEndpoint}/Account/OTPCheck`, requestOptions)
       .then(async (response) => {
         const data = await response.json();
+
+        //this.setState({redirect: true});
+
+        this.props.setCurrentUserOTP(data[0]);
+
+        
         console.log(data);
+
+
         // check for error response
         if (!response.ok) {
           // if response.status was 401 then toggle error component and render it
@@ -75,7 +102,7 @@ class OTP extends React.Component {
           const error = (data && data.message) || response.status;
           console.log(error);
           return Promise.reject(error);
-          this.props.toggleSpinner(false);
+          
         }
 
         this.props.toggleSpinner(false);
@@ -86,44 +113,62 @@ class OTP extends React.Component {
       });
   };
 
-  render() {
-    if (this.props.user_id) {
-      return (
-        <div className="otp">
-          <form className="sms-input" onSubmit={this.submitHandler}>
-            <FormInput
-              type="number"
-              name="SMSCode"
-              value={this.state.SMSCode}
-              required
-              placeholder="Type SMS code here..."
-              handleChange={this.handleChange}
-            />
-
-            <div className="timer-container">
-              <span>The code was sent to you by SMS</span>
-              <span>{this.state.second}</span>
-            </div>
-            <button type="submit" className="test-button">
-              test button
-            </button>
-          </form>
-          <div />
-        </div>
-      );
-    } else {
-      return null;
-    }
+  SMSResend = () => {
+      this.setState({second:120})
   }
+
+
+  render() {
+   
+      return (  
+        <div className="otp">
+            <div className='form-container'>
+            <form className="sms-input" onSubmit={this.submitHandler} id='otp-form'>
+              <FormInput
+                type="number"
+                name="SMSCode"
+                value={this.state.SMSCode}
+                required
+                placeholder="Type SMS code here..."
+                handleChange={this.handleChange}
+              />
+            </form>
+            <div className="timer-container">
+                <span>Code sent via SMS</span>
+            </div>
+            <div className='timer'>
+              
+                {
+                  this.state.resend ? <span onClick={this.SMSResend} style={{cursor:"pointer", fontSize:'1.5rem'}}>Resend?</span> : 
+                  <span>{this.state.second}</span>
+                }
+            
+            
+              <button type="submit" className="next-button"  form='otp-form'>
+                next
+              </button>
+                
+            </div>
+        
+          </div>
+          <LoadingSpinner /> 
+         
+        </div>  
+      );
+  }
+
 }
+
 
 const mapStateToProps = (state) => ({
   user_id: state.user.user_id,
-  token: state.user.access_token,
+  token: state.user.access_token
 });
 
 const mapDispatchToProps = (dispatch) => ({
   toggleSpinner: (loading) => dispatch(toggleSpinner(loading)),
+  setCurrentUserOTP: user => dispatch(setCurrentUserOTP(user))
 });
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(OTP);

@@ -6,6 +6,7 @@ import { appConfig } from '../../api/api-endpoints';
 
 import FormInput from '../form-input/form-input.component';
 import LoadingSpinner from '../loading-spinner/loading-spinner.component';
+import Alert from '../alert/alert.component';
 
 import hooMainLogo from '../../assets/sign-in/main-logo.png';
 
@@ -14,8 +15,8 @@ import { setCurrentUser } from '../../redux/user/user.actions';
 import { toggleSpinner } from '../../redux/loading-spinner/loading-spinner.actions';
 import  OTP  from '../otp/otp.component';
 import {ReactComponent as SignInButton} from '../../assets/LivIconsEvo/svg/loader-8.svg';
-import audioSound from '../../assets/mp3/Apparat-circles.mp3'
-import waterDippingSound from '../../assets/mp3/Water_dripping.mp3'
+
+import waterDippingSound from '../../assets/mp3/Water_dripping.mp3';
 
 class SignIn extends React.Component {
     constructor(props) {
@@ -26,19 +27,17 @@ class SignIn extends React.Component {
             username:'',
             password:'',
             errorMessage:'',
-            audioSoundSource: waterDippingSound,
-            play: false
+            userAuthenticated: false
         }
     }
 
     audioPlay = () => {
-        
-        this.setState((prevState, prevProp) => {
-            prevState.play = true
-        }, console.log(this.state.play))
-    
+
+        let WaterDrip = new Audio(waterDippingSound);
+        WaterDrip.play();
         
     }
+
 
     handleChange = e => {
         const {name, value} = e.target;
@@ -65,7 +64,9 @@ class SignIn extends React.Component {
     fetch(`${appConfig.apiEndpoint}/account/login`, requestOptions)
         .then(async response => {
             const data = await response.json();
-
+            console.log(data);
+            // if we dont do this then alert wont apply more than one time. since it wont re-render.
+            this.setState({ errorMessage: '' }); 
             // check for error response
             if (!response.ok) {
                 this.props.toggleSpinner(false);
@@ -78,15 +79,22 @@ class SignIn extends React.Component {
                 return Promise.reject(error);
             }
 
+
             this.props.setCurrentUser(data);
             
             this.props.toggleSpinner(false);
+
+            this.setState({userAuthenticated: true, play:false})
+
+            
           
             
         })
         .catch(error => {
+            this.props.toggleSpinner(false);
             this.setState({ errorMessage: error.toString() });
             console.error('There was an error!', error);
+
         });
 
     }
@@ -105,7 +113,7 @@ class SignIn extends React.Component {
                 </div>
 
                 <form onSubmit={this.submitHandler} className='sign-in__form'>
-
+            
                     <FormInput 
                     type="text"
                     name="username"
@@ -125,25 +133,25 @@ class SignIn extends React.Component {
                     required
                     />
                     
+
                     
                 <button type='submit' className='test-button' onClick={this.audioPlay}>test button</button>
-                </form>
-               
                 {
-                    this.state.play === true ? <audio src={this.state.audioSoundSource} autoPlay></audio>
-                    : null
+                   this.state.errorMessage.length > 0 ? <Alert
+                   errorMessage={'Incorrect username or password'} danger/> : null
                 }
-                  
+                </form>        
                 
                 
+                <LoadingSpinner />  
+                {
+                    this.state.userAuthenticated && <OTP/>
+                }
                 
-                <SignInButton className="button"/>
-                <LoadingSpinner />
-                <OTP />
                 <div>
-            
-            </div>
                 
+            </div>
+            
             </div>
                
 

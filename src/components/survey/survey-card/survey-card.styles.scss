@@ -1,0 +1,67 @@
+
+.card {
+    width: 96.5%;
+    height: 80vw;
+
+    font-size: 1.8rem;
+
+    text-transform: uppercase;
+
+    padding: 3.5rem;
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;  
+    justify-content: space-around; 
+    //background-color: red;
+    z-index: 99999;
+    text-align: center;
+    //background-image: url('../../../assets/repo/Life_Skills.jpg');
+    
+    box-sizing: border-box;
+    margin-bottom: 5rem;
+
+    position: relative;
+    z-index: 1;
+
+
+
+    &-title {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        
+    }
+
+
+    &-image {
+        margin: 0 auto;
+        display: block;
+        width: 100%;
+        height: 62vw; 
+        border-radius: 1.4rem;       
+        
+        
+    }
+
+    &-rating {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+    }
+}
+
+
+@media only screen and (min-width:450px) {
+    .card {
+        width: 355px;
+        height: 329px;
+        
+        
+    }
+
+    .card-image {
+        width: 100%;
+        height: 100%;
+        
+    }
+    
+}

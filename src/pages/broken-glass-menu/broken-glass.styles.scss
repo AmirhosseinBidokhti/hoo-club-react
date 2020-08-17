@@ -1,0 +1,590 @@
+.broken-glass-page {
+    height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-image: url('../../assets/repo/bg.jpeg');
+    background-size: cover;
+    background-attachment: fixed;
+    
+
+
+    //padding: 7rem 2.5rem;
+
+    
+
+}
+
+
+ul li {
+    cursor: pointer;
+    
+}
+
+
+.shadoww {
+    // -webkit-border-radius: 0% 0% 100% 100% / 0% 0% 8px 8px;
+    // -webkit-box-shadow: #ffa000 0 2px 3px;
+    // box-shadow: #ffa000 0 2px 3px;
+    border-radius: 0% 0% 100% 100% / 0% 0% 8px 8px;
+}
+
+.container {
+    margin: 0 auto;
+    margin-top: 50px;
+    height: 100%;
+    // background: #000;
+    // border: 1px solid #ffa000;
+    // box-shadow: 1px 1px 2px #000 inset, -1px -1px 2px #000 inset;
+    border-radius: 3px/6px;
+    width: auto;
+    
+}
+
+.txt {
+    color: #777777;
+    margin: 20px 20px;
+    text-align: center;
+    line-height: 2;
+}
+
+.button_cont {
+    margin-top: 30px;
+}
+
+.example_f {
+    border-radius: 4px;
+    // background: linear-gradient(to right, #777777, #ffa000) !important;
+    background: #ffa000 !important;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 22px;
+    padding: 10px;
+    width: 200px;
+    transition: all 0.4s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.example_f span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.4s;
+    color: #fff;
+}
+
+.example_f span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.example_f:hover span {
+    padding-right: 25px;
+    direction: ltr;
+}
+
+.example_f:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.demo {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.angle--bottom-left {
+    position: absolute;
+    overflow: hidden;
+    -webkit-clip-path: polygon(100% 0, 0 0, 75% 100%);
+    clip-path: polygon(100% 0, 0 0, 75% 100%);
+    height: 100px;
+    width: 100%;
+    top: 0;
+}
+
+.angle--both-left-right {
+    position: absolute;
+    overflow: hidden;
+    -webkit-clip-path: polygon(0 calc(0% + 7vw), 100% 0, 100% calc(100% - 7vw), 0 100%);
+    clip-path: polygon(0 calc(0% + 7vw), 100% 0, 100% calc(100% - 7vw), 0 100%);
+}
+
+.angle--both-left-left {
+    position: absolute;
+    overflow: hidden;
+    -webkit-clip-path: polygon(102% 0%, -1% 100%, 45% 100%);
+    clip-path: polygon(102% 0%, -1% 100%, 45% 100%);
+    max-height: 469px;
+    height: 469px;
+    width: 75%;
+    top: 89px;
+}
+
+.angle--middle {
+    position: absolute;
+    overflow: hidden;
+    -webkit-clip-path: polygon(100% 11%, 0% 61%, 0% 22%);
+    clip-path: polygon(100% 11%, 0% 61%, 0% 22%);
+    width: 75%;
+    height: 486px;
+    top: 42px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 7rem 2rem;
+    height: 0;
+}
+
+.angle--top-left {
+    position: absolute;
+    overflow: hidden;
+    -webkit-clip-path: polygon(0 calc(0% + 7vw), 100% 0, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% calc(0% + 7vw), 100% calc(100% - 7vw), 0 100%);
+}
+
+.angle--both-right-right {
+    position: absolute;
+    overflow: hidden;
+    -webkit-clip-path: polygon(0 0%, 0% 100%, 100% 66%);
+    clip-path: polygon(0 0%, 0% 100%, 100% 66%);
+    height: 150px;
+    width: 75%;
+}
+
+.angle--both-min-right {
+    shape-outside: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    shape-margin: 1em;
+    width: 16em;
+    height: 100px;
+}
+
+.angle--both-min-left {
+    clip-path: polygon(77% 0, 0 29%, 0 100%);
+    -webkit-clip-path: polygon(77% 0, 0 29%, 0 100%);
+    shape-margin: 1em;
+    width: 16em;
+    height: 100px;
+}
+
+.angle--bottom-left-left {
+    -webkit-clip-path: polygon(100% 34%, -93% 100%, 0% 100%);
+    clip-path: polygon(100% 34%, -93% 100%, 0% 100%);
+    width: 76%;
+    position: absolute;
+    overflow: hidden;
+    top: -145px;
+    height: 699px;
+}
+
+.angle--bottom-left-right {
+    -webkit-clip-path: polygon(66% 38%, 50% 100%, 100% 100%);
+    clip-path: polygon(66% 38%, 50% 100%, 100% 100%);
+    width: 75%;
+    position: absolute;
+    overflow: hidden;
+    float: right;
+    right: -1px;
+    top: -183px;
+    height: 741px;
+    max-height: 741px;
+}
+
+.angle--middle-botton {
+    position: absolute;
+    overflow: hidden;
+    -webkit-clip-path: polygon(60% 0%, 5% 100%, 46% 101%);
+    clip-path: polygon(60% 0%, 5% 100%, 46% 101%);
+    max-height: 458px;
+    height: 458px;
+    width: 75%;
+    top: 100px;
+    left: 30%;
+}
+
+.angle--right {
+    -webkit-clip-path: polygon(74% 14%, 100% 81%, 100% 0);
+    clip-path: polygon(74% 14%, 100% 81%, 100% 0);
+    width: 98%;
+    position: absolute;
+    overflow: hidden;
+    float: right;
+    right: 0px;
+}
+
+ul {
+    padding: 0;
+    position: relative;
+}
+
+@media only screen and (max-width: 330px) {
+    .menuCat {
+      margin-top: -5rem;
+    }
+   
+  }
+
+.menuCat {
+    // border: '1px solid white';
+    border-radius: 5px;
+    position: relative;
+    width: 43rem;
+    
+
+
+    
+    top: -39px;
+    img {
+        flex-shrink: 0;
+        min-width: 100%;
+        min-height: 100%;
+    }
+    a {
+        display: contents;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+}
+
+//Mobile S
+@media (max-width: 320px) {
+    .angle--right {
+        -webkit-clip-path: polygon(74% 14%, 100% 81%, 100% 0);
+        clip-path: polygon(74% 14%, 100% 81%, 100% 0);
+        max-height: 685px;
+        height: 685px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 425px) {
+    .angle--right {
+        -webkit-clip-path: polygon(74% 14%, 100% 81%, 100% 0);
+        clip-path: polygon(74% 14%, 100% 81%, 100% 0);
+        width: 94%;
+        max-height: 685px;
+        height: 685px;
+    }
+}
+
+.test-shine {
+    width: 435px;
+    height: 318px;
+    background-color: #337bb2;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0px;
+    left: 40%;
+    margin: 25px 0 25px 25px;
+    border-radius: 5px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.test-shine:after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 20%;
+    height: 200%;
+    opacity: 0;
+    transform: rotate(30deg);
+    background: rgba(255, 255, 255, 0.13);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.13) 0%, rgba(255, 255, 255, 0.13) 77%, rgba(255, 255, 255, 0.5) 92%, rgba(255, 255, 255, 0.0) 100%);
+}
+
+
+/* Hover state - trigger effect */
+
+.test-shine:hover:after {
+    opacity: 1;
+    left: 130%;
+    transition-property: left, top, opacity;
+    transition-duration: 0.7s, 0.7s, 0.15s;
+    transition-timing-function: ease;
+}
+
+
+/* Active state */
+
+.test-shine:active:after {
+    opacity: 0;
+}
+
+.navbar {
+    overflow: hidden;
+    background-color: #000;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0px;
+    border-radius: 0px 0px 10px 10px;
+    z-index: 10;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.navbar a:hover {
+    background: #333;
+    color: black;
+    border-radius: 50px;
+}
+
+.main {
+    padding: 16px;
+    margin-top: 30px;
+    height: 1500px;
+    /* Used in this example to enable scrolling */
+}
+
+.navbar {
+    svg {
+        fill: #ffa000;
+    }
+}
+
+.container {
+    margin: 60px auto;
+    text-align: center;
+}
+
+.progress-nav {
+    width: 70%;
+}
+
+.progress {
+    padding: 0px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 6px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.progress-bar {
+    height: 16px;
+    border-radius: 4px;
+    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+    background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+    background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+    -webkit-transition: 0.4s linear;
+    -moz-transition: 0.4s linear;
+    -o-transition: 0.4s linear;
+    transition: 0.4s linear;
+    -webkit-transition-property: width, background-color;
+    -moz-transition-property: width, background-color;
+    -o-transition-property: width, background-color;
+    transition-property: width, background-color;
+    -webkit-box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+}
+
+
+/*
+   * Note: using adjacent or general sibling selectors combined with
+   *       pseudo classes doesn't work in Safari 5.0 and Chrome 12.
+   *       See this article for more info and a potential fix:
+   *       https://css-tricks.com/webkit-sibling-bug/
+   */
+
+#five:checked~.progress>.progress-bar {
+    width: 5%;
+    background-color: #f63a0f;
+}
+
+#twenty:checked~.progress>.progress-bar {
+    width: 20%;
+    background-color: #f27011;
+}
+
+#thirtyfive:checked~.progress>.progress-bar {
+    width: 35%;
+    background-color: #ff9933;
+}
+
+#fifty:checked~.progress>.progress-bar {
+    width: 50%;
+    background-color: #ffcc66;
+}
+
+#sixtyfive:checked~.progress>.progress-bar {
+    width: 65%;
+    background-color: #ffff99;
+}
+
+#eighty:checked~.progress>.progress-bar {
+    width: 80%;
+    background-color: #ccff99;
+}
+
+#onehundred:checked~.progress>.progress-bar {
+    width: 100%;
+    background-color: #86e01e;
+}
+
+.radio {
+    display: none;
+}
+
+.label {
+    display: inline-block;
+    margin: 0 5px 20px;
+    padding: 3px 8px;
+    color: #aaa;
+    text-shadow: 0 1px black;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.radio:checked+.label {
+    color: white;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.modal-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 50%;
+    height: 50vh;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    //visibility: hidden;
+    
+}
+
+.modal-dialog {
+    width: 70vmin;
+    height: 70vmin;
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.modal-polygon {
+    fill: rebeccapurple;
+}
+
+.modal-content {
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 5px;
+    //visibility: hidden;
+    //opacity: 0;
+    //color: rgba(255, 255, 255, 0.87);
+    background-color: #000;
+    //border: unset;
+    //border-radius: unset;
+    img {
+        width: 100%;
+        border-radius: 5px;
+    }
+    h2 {
+        text-align: center;
+        font-size: 1rem;
+        font-family: samim;
+    }
+}
+
+
+
+
+////////// new modal in react 
+
+.modal-container-react {
+    width: 27rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    cursor: pointer;
+    
+    &:focus {
+        outline: none;
+        border: none;
+    }
+    
+        
+}
+.modal-content h2 {
+    font-size: 2rem;
+    border: none;
+    margin: .9rem 0;
+    outline: none;
+}
+
+@media screen and (max-width: 322px) {
+    .modal-container-react {
+      width: 24rem;
+    }
+
+    .broken-glass-page {
+        background-color: transparent;
+        
+    }
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.en-well {
+    font-family: cursive;
+    direction: ltr;
+}
+
+.flag-icon a img {
+    width: 20px;
+    margin: 5px;
+}

@@ -7,6 +7,8 @@
 
     width: 35rem;
     
+    overflow-y: hidden;
+    overflow-y: hidden;
    
     &__form {
         display: flex;
@@ -36,4 +38,18 @@
     color: gold;
     background-color: white
         
+}
+
+.sms-resend {
+    
+    margin-top: 2rem;
+    font-size: 2rem;
+
+    &-reveal {
+        display: block;
+    }
+
+    &-remove {
+        display: none;
+    }
 }
