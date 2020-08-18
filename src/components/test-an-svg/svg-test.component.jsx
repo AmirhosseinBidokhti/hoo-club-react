@@ -1,10 +1,12 @@
 
 import React from 'react';
 
+import {ReactComponent as Logo} from '../../assets/LivIconsEvo/svg/loader-8.svg'
+
 
 function SVGTest() {
   return (
-    <div></div>
+      <Logo />
   );
 }
 export default SVGTest;

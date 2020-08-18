@@ -14,7 +14,7 @@ import './sign-in.styles.scss';
 import { setCurrentUser } from '../../redux/user/user.actions';
 import { toggleSpinner } from '../../redux/loading-spinner/loading-spinner.actions';
 import  OTP  from '../otp/otp.component';
-import {ReactComponent as SignInButton} from '../../assets/LivIconsEvo/svg/loader-8.svg';
+//import {ReactComponent as SignInButton} from '../../assets/LivIconsEvo/svg/loader-8.svg';
 
 import waterDippingSound from '../../assets/mp3/Water_dripping.mp3';
 
@@ -148,10 +148,9 @@ class SignIn extends React.Component {
                     this.state.userAuthenticated && <OTP/>
                 }
                 
-                <div>
-                
+                <div>    
             </div>
-            
+
             </div>
                
 

@@ -113,9 +113,51 @@ class OTP extends React.Component {
       });
   };
 
+
+
+
+
+
+
+  // Resend the SMS From OTP Service
   SMSResend = () => {
-      this.setState({second:120})
-  }
+
+    this.props.toggleSpinner(true);
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "Bearer  " + this.props.token,
+      },
+      body: `{"Params":'{"UserID":"${this.props.user_id.toString()}"}'}`,
+    };
+   
+    fetch(`${appConfig.apiEndpoint}/Account/SendOTPSms`, requestOptions)
+      .then(async (response) => {
+        
+        const data = await response.json();
+        console.log(data);
+        this.props.toggleSpinner(false);
+
+        // check for error response
+        if (!response.ok) {
+        
+
+          // get error message from body or default to response status
+          const error = (data && data.message) || response.status;
+          console.log(error);
+          return Promise.reject(error);
+          
+        }
+
+      })
+
+      .catch((error) => {
+        console.error("There was an error!", error);
+        this.props.toggleSpinner(false);
+      });
+      
+  };
 
 
   render() {
