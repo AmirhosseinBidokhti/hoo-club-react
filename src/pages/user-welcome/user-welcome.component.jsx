@@ -3,32 +3,56 @@ import React from 'react';
 import './user-welcome.styles.scss';
 
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 
-const UserWelcome = (props) => (
-    <div className="user-welcome">
+
+class UserWelcome extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            redirect: false,
+            redirectTo: '/welcome-1'
+        }
         
-        <div className="user-welcome-text">
+    }
 
-            <pre> 
-            {`
-            Dear Mr./Ms. ${props}
-            Welcome to member's "Needs Priority
-            Assessment". Please spend 8 minutes and 
-            prioritize your needs on each service.`
-            }
-            </pre>
+    render() {
+        return(
+            <div className="user-welcome">
+                <div className="user-welcome-text">
 
-        </div>
+                    Dear Mr. /Ms. <span className='user-welcome-name'>({this.props.lastName})</span><br/>
+                    Welcome to member's "Needs Priority Assessment". <br/>
+                    Please spend 8 minutes and prioritize your needs on each service.
 
+                </div>
+                <button className="next-button btn" 
+                onClick={() => this.setState({ redirect:true }) }
+                >
+                next
+                </button>
 
-    </div>
-);
+                {
+                    this.state.redirect ? <Redirect to={`${this.state.redirectTo}`} /> : null
+                }
+
+            </div>
+        )
+    }
+    
+} 
+    
+
+    
+    
+
 
 const mapStateToProps = (state) => ({
     lastName: state.user.lastName
   });
   
- 
+ //
     
 export default connect(mapStateToProps,null)(UserWelcome);

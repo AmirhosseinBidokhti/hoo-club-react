@@ -11,6 +11,7 @@ import { toggleSpinner } from "../../redux/loading-spinner/loading-spinner.actio
 import { setCurrentUserOTP } from '../../redux/user/user.actions';
 
 import LoadingSpinner from '../loading-spinner/loading-spinner.component';
+import Alert from '../alert/alert.component';
 
 import "./otp.styles.scss";
 
@@ -20,9 +21,11 @@ class OTP extends React.Component {
 
     this.state = {
       SMSCode: "",
-      second: 120,
+      second: 12,
       resend: false,
-      redirect: false
+      redirect: false,
+      dearUser: '/dear-user',
+      resendResult: ''
     };
   }
 
@@ -89,7 +92,14 @@ class OTP extends React.Component {
 
         this.props.setCurrentUserOTP(data[0]);
 
+
+        // if otp code was not giving us a error then change redirect to true so we can redirect
+        if(data[0].result !== 'Error') {
+          this.setState({redirect: true});
+        }
+
         
+
         console.log(data);
 
 
@@ -122,6 +132,7 @@ class OTP extends React.Component {
   // Resend the SMS From OTP Service
   SMSResend = () => {
 
+    this.setState({second: 120})
     this.props.toggleSpinner(true);
     const requestOptions = {
       method: "POST",
@@ -135,8 +146,11 @@ class OTP extends React.Component {
     fetch(`${appConfig.apiEndpoint}/Account/SendOTPSms`, requestOptions)
       .then(async (response) => {
         
+        this.setState({resendResult:''})
         const data = await response.json();
+        this.setState({resendResult:data[0].result})
         console.log(data);
+        console.log(this.state);
         this.props.toggleSpinner(false);
 
         // check for error response
@@ -147,6 +161,7 @@ class OTP extends React.Component {
           const error = (data && data.message) || response.status;
           console.log(error);
           return Promise.reject(error);
+          
           
         }
 
@@ -195,6 +210,10 @@ class OTP extends React.Component {
           </div>
           <LoadingSpinner /> 
          
+         {
+           this.state.redirect === true ? <Redirect to={this.state.dearUser} /> : null
+         }
+         
         </div>  
       );
   }
@@ -214,3 +233,12 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(OTP);
+
+
+
+ /*{
+            this.state.resendResult === "Ok" ? 
+            <Alert success errorMessage={'Resent the SMS code'}/> 
+            :
+            <Alert danger errorMessage={'Code was not sent,Please contact support team'} />
+          }*/

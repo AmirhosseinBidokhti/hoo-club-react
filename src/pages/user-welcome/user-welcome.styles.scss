@@ -1,0 +1,45 @@
+.user-welcome {
+
+    background-image: url('../../assets/repo/bg.jpeg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+    color: rgb(187, 185, 185);
+
+    
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding-top: 4rem;
+    
+
+    
+    
+    font-size: 1.6rem;
+
+    &-text {
+        width: 60%;
+        text-align: center;
+        line-height: 2.5rem;
+        word-spacing: 2px;
+        margin: 0 auto;
+    }
+    
+    &-name {
+        font-weight: bold;
+
+    }
+
+    @media screen and (max-width: 330px) {
+        .user-welcome-text {
+            font-size: 1.4rem;
+        }
+    }
+
+}
+
+.btn {
+    margin: 1.3rem auto;
+
+}
