@@ -9,7 +9,14 @@ import cat6 from '../../assets/repo/cat6.jpg';
 import cat7 from '../../assets/repo/cat7.jpg';
 import wood from '../../assets/repo/wood.jpg';
 
+
+//import { appConfig } from '../../api/api-endpoints';
+
+
 import Modal from 'react-modal';
+
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 
 //Attempted import error: '../../api/api-endpoints' does not contain a default export (imported as 'appConfig').
@@ -44,43 +51,8 @@ class BrokenGlass extends React.Component {
         }, ()=> console.log(this.state))
     }
 
-
     
-
-
-
-    // api call
-    getCategories = (categoryId) => {
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ categoryId })
-        };
-        fetch(`${appConfig.apiEndpoint}/ServiceCategory/GetCategories`, requestOptions)
-            .then(async response => {
-                const data = await response.json();
     
-                // check for error response
-                if (!response.ok) {
-                    this.props.toggleSpinner(false);
-                    // if response.status was 401 then toggle error component and render it
-                    // after could of seconds then toggle again so it disapear.
-    
-                    // get error message from body or default to response status
-                    const error = (data && data.message) || response.status;
-                    console.log(error);
-                    return Promise.reject(error);
-                }
-    
-              
-                
-            })
-            .catch(error => {
-                console.error('There was an error!', error);
-            });
-    
-        
-    }
 
 
     render() {
@@ -132,7 +104,7 @@ class BrokenGlass extends React.Component {
                         </li>
                         <li className="angle--right">
                         <a id="open-button" className="test-shine">
-                            <img src={wood} className="angle__content" alt=""/>
+                            <img src={wood} className="angle__content" onClick={()=> this.props.history.push('/dashboard')}  alt=""/>
                         </a>
                         </li>
                     </ul>
@@ -259,6 +231,9 @@ class BrokenGlass extends React.Component {
 
 }
 
+const mapStateToProps = (state) => ({
+    //user_id: state.user.user_id,
+    token: state.user.access_token
+  });
 
-
-export default BrokenGlass;
+export default withRouter(connect(mapStateToProps,null)(BrokenGlass));
