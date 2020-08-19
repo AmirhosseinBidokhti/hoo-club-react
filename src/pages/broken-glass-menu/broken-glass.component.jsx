@@ -210,6 +210,7 @@ class BrokenGlass extends React.Component {
                 </Modal>
                 <Modal id="modal-7" className="modal-container-react" isOpen={modal7} 
                 onRequestClose={()=> this.setModalIsOpen(false, 7)} ariaHideApp={false}
+                
                 >
                     <div className="modal-dialo">
                         <svg className="modal-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -218,7 +219,7 @@ class BrokenGlass extends React.Component {
                         <div className="modal-content">
                         <h2 className="modal-title">7</h2>
                         <a>
-                            <img src={cat7} className="angle__content" alt=""/>
+                            <img src={cat7} className="angle__content" onClick={()=> this.props.history.push('/survey/id')}  alt=""/ >
                         </a>
                         </div>
                     </div>

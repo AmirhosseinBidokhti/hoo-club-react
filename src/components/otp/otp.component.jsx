@@ -21,7 +21,7 @@ class OTP extends React.Component {
 
     this.state = {
       SMSCode: "",
-      second: 12,
+      second: 120,
       resend: false,
       redirect: false,
       dearUser: '/dear-user',
