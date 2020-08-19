@@ -16,7 +16,11 @@ const userReducer = (state=INITIAL_STATE, action) => {
             return {
                 ...state,
                 access_token: action.payload.access_token,
-                user_id: action.payload.user_id,
+                user_id: action.payload.UserID,
+                firstName: action.payload.FirstName,
+                lastName: action.payload.LastName,
+                memberID: action.payload.MemberID
+                
                 
 
             }

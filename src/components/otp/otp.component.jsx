@@ -52,9 +52,93 @@ class OTP extends React.Component {
       //window.location.reload();
   }
 
+
+  // getting sms from otp as soon as componentmounts
   componentDidMount() {
+
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        authorization: "Bearer  " + this.props.token,
+      },
+      body: JSON.stringify({procname:'PostLoginProcess', 'params': {UserID: this.props.user_id.toString()}})
+    
+    };
+    
+    console.log('here the token')
+    console.log(this.props.token)
+    fetch(`${appConfig.apiEndpoint}/BackendEngine`, requestOptions)
+      .then(async (response) => {
+        
+        const data = await response.json();
+        
+        console.log(data);
+
+        // check for error response
+        if (!response.ok) {
+        
+
+          // get error message from body or default to response status
+          const error = (data && data.message) || response.status;
+          console.log(error);
+          return Promise.reject(error);
+          
+          
+        }
+
+      })
+
+      .catch((error) => {
+        console.error("There was an error!", error);
+        this.props.toggleSpinner(false);
+      });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     this.timer = setInterval(this.tick, 1000);
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   componentWillUnmount() {
     clearInterval(this.timer);
@@ -66,13 +150,7 @@ class OTP extends React.Component {
 
     this.props.toggleSpinner(true);
 
-    // console.log(
-    //   `{"Params":'{"UserID":"${this.props.user_id.toString()}","OTP":"${
-    //     this.state.SMSCode
-    //   }"}'}`
-    // );
-    // console.log("Bearer  " + this.props.token);
-    // POST request using fetch with error handling
+  
     const requestOptions = {
       method: "POST",
       headers: {
@@ -173,6 +251,18 @@ class OTP extends React.Component {
       });
       
   };
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   render() {

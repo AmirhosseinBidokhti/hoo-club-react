@@ -58,10 +58,13 @@ class SignIn extends React.Component {
         // POST request using fetch with error handling
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: JSON.stringify({ username: this.state.username,password:this.state.password })
     };
-    fetch(`${appConfig.apiEndpoint}/account/login`, requestOptions)
+
+    console.log('down here the body:');
+    console.log(requestOptions.body);
+    fetch(`${appConfig.apiEndpoint}/token`, requestOptions)
         .then(async response => {
             const data = await response.json();
             console.log(data);
