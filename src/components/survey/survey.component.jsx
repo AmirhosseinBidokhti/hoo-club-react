@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import { appConfig } from "../../api/api-endpoints";
 import Cookie from "js-cookie";
 import axios from "axios";
+const superagent = require("superagent");
 
 class Survey extends React.Component {
   constructor(props) {
@@ -32,29 +33,96 @@ class Survey extends React.Component {
       () => {}
     );
 
-    const config = {
-      headers: { authorization: "Bearer  " + userObj.access_token },
-    };
+    // define the api
+    // const api = create({
+    //   baseURL: appConfig.apiEndpoint,
+    //   headers: { Accept: "application/vnd.github.v3+json" },
+    // });
 
-    const bodyParameters = {
-      procname: "GetSurveyImages",
-      params: `{"PageNumber":"1","PageSize":"3","CategoryID":"${1}","UserID":"${
-        userObj.UserID
-      }"}`,
-    };
+    // api.post(
+    //   "/BackendEngine",
+    //   {
+    //     procname: "GetSurveyImages",
+    //     params: `{"PageNumber":"1","PageSize":"3","CategoryID":"${1}","UserID":"${
+    //       userObj.UserID
+    //     }"}`,
+    //   },
+    //   { headers: { authorization: "Bearer  " + userObj.access_token } }
+    // );
 
-    console.log(bodyParameters);
+    // callback
 
-    axios
-      .post(`${appConfig.apiEndpoint}/BackendEngine`, bodyParameters, config, {
-        timeout: 30000,
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch(console.log);
+    // super agent
+    // superagent
+    //   .post(`${appConfig.apiEndpoint}/BackendEngine`)
+    //   .send({
+    //     procname: "GetSurveyImages",
+    //     params: `{"PageNumber":"1","PageSize":"3","CategoryID":"${1}","UserID":"${
+    //       userObj.UserID
+    //     }"}`,
+    //   })
+    //   .set("authorization", "Bearer  " + userObj.access_token)
+    //   .set("accept", "json")
+    //   .set("Content-Type", "application/json")
+    //   .end((err, res) => {
+    //     console.log(res.text);
+    //     console.log(res);
+    //   });
+
+    (async () => {
+      try {
+        const res = await superagent
+          .post(`${appConfig.apiEndpoint}/BackendEngine`)
+          .send({
+            procname: "GetSurveyImages",
+            params: `{"PageNumber":"1","PageSize":"3","CategoryID":"${1}","UserID":"${
+              userObj.UserID
+            }"}`,
+          })
+          .set("authorization", "Bearer  " + userObj.access_token)
+          .set("accept", "json")
+          .set("Content-Type", "application/json");
+        console.log(res);
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+
+    // superagent
+    //   .get(`${appConfig.apiEndpoint}/BackendEngineGet`)
+    //   .send()
+    //   .set("accept", "json")
+    //   .end((err, res) => {
+    //     // Calling the end function will send the request
+    //     console.log(res);
+    //   });
+
+    /////////
+    // const config = {
+    //   headers: { authorization: "Bearer  " + userObj.access_token },
+    // };
+
+    // const bodyParameters = {
+    //   procname: "GetSurveyImages",
+    //   params: `{"PageNumber":"1","PageSize":"3","CategoryID":"${1}","UserID":"${
+    //     userObj.UserID
+    //   }"}`,
+    // };
+
+    // console.log(bodyParameters);
+
+    // axios
+    //   .post(`${appConfig.apiEndpoint}/BackendEngine`, bodyParameters, config, {
+    //     timeout: 30000,
+    //   })
+    //   .then((response) => {
+    //     console.log(response.data);
+    //   })
+    //   .catch(console.log);
 
     /////////////
+    // console.log("orgasm:" + userObj.access_token);
+
     // const requestOptions = {
     //   method: "POST",
     //   headers: { "Content-Type": "application/json" },
