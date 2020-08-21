@@ -14,6 +14,11 @@ import './sign-in.styles.scss';
 import { setCurrentUser } from '../../redux/user/user.actions';
 import { toggleSpinner } from '../../redux/loading-spinner/loading-spinner.actions';
 import  OTP  from '../otp/otp.component';
+
+
+
+import Cookie from 'js-cookie';
+
 //import {ReactComponent as SignInButton} from '../../assets/LivIconsEvo/svg/loader-8.svg';
 
 import waterDippingSound from '../../assets/mp3/Water_dripping.mp3';
@@ -27,7 +32,8 @@ class SignIn extends React.Component {
             username:'',
             password:'',
             errorMessage:'',
-            userAuthenticated: false
+            userAuthenticated: false,
+            userObj: null
         }
     }
 
@@ -82,8 +88,18 @@ class SignIn extends React.Component {
                 return Promise.reject(error);
             }
 
+            //this.props.setCurrentUser(data);
+            Cookie.set('currentUser',data);
+            const user = Cookie.get('currentUser');
+            
+            const userData = JSON.parse(user);
+            console.log(userData.access_token);
+            console.log(userData.FirstName);
+            this.setState({userObj: userData});
 
-            this.props.setCurrentUser(data);
+            
+            //console.log(user.JSON.parse());
+
             
             this.props.toggleSpinner(false);
 
@@ -148,7 +164,7 @@ class SignIn extends React.Component {
                 
                 <LoadingSpinner />  
                 {
-                    this.state.userAuthenticated && <OTP/>
+                    this.state.userObj && <OTP/>
                 }
                 
                 <div>    

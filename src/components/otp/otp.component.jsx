@@ -12,6 +12,8 @@ import { setCurrentUserOTP } from "../../redux/user/user.actions";
 
 import LoadingSpinner from "../loading-spinner/loading-spinner.component";
 import Alert from "../alert/alert.component";
+import Cookie from 'js-cookie';
+
 
 import "./otp.styles.scss";
 
@@ -21,7 +23,7 @@ class OTP extends React.Component {
 
     this.state = {
       SMSCode: "",
-      second: 120,
+      second: 12,
       resend: false,
       redirect: false,
       dearUser: "/dear-user",
@@ -55,24 +57,34 @@ class OTP extends React.Component {
 
   // getting sms from otp as soon as componentmounts
   componentDidMount() {
+
+    const user = Cookie.get('currentUser');
+    
+    const userObj = JSON.parse(user);
+
+    console.log(userObj);
+    console.log(userObj.access_token);
+    console.log(userObj.UserID);
+    
+    
     const requestOptions = {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        authorization: "Bearer  " + this.props.token,
+        authorization: "Bearer  " + userObj.access_token,
       },
       body: JSON.stringify({
         procname: "PostLoginProcess",
-        params: `{ "UserID": ${this.props.user_id.toString()} }`,
+        params: `{ "UserID": "${userObj.UserID.toString()}"}`,
       }),
     };
 
     console.log("here the token");
-    console.log(this.props.token);
+    console.log(userObj.access_token);
     console.log(
       JSON.stringify({
         procname: "PostLoginProcess",
-        params: { UserID: this.props.user_id.toString() },
+        params: { UserID: userObj.UserID.toString() },
       })
     );
     fetch(`${appConfig.apiEndpoint}/BackendEngine`, requestOptions)
@@ -102,29 +114,44 @@ class OTP extends React.Component {
     clearInterval(this.timer);
   }
 
+
+
+
+  // check the sms 
   submitHandler = (e) => {
     e.preventDefault();
 
     this.props.toggleSpinner(true);
 
+    const user = Cookie.get('currentUser');
+    
+    const userObj = JSON.parse(user);
+
+    
+
     const requestOptions = {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        authorization: "Bearer  " + this.props.token,
+        "Content-Type": "application/x-www-form-urlencoded",
+        authorization: "Bearer  " + userObj.access_token,
       },
-      body: `{"Params":'{"UserID":"${this.props.user_id.toString()}","OTP":"${
-        this.state.SMSCode
-      }"}'}`,
+      body: JSON.stringify({
+        procname: "LoginOTPCheck",
+        params: `{ "UserID": ${userObj.UserID.toString()}, "OTP":"${this.state.SMSCode}" }`,
+      }),
+      //body: `{"Params":'{"UserID":"${this.props.user_id.toString()}","OTP":"${
+        //this.state.SMSCode
+      //}"}'}`,
     };
+
     // console.log("before call otp check");
-    fetch(`${appConfig.apiEndpoint}/Account/OTPCheck`, requestOptions)
+    fetch(`${appConfig.apiEndpoint}/BackendEngine`, requestOptions)
       .then(async (response) => {
         const data = await response.json();
 
         //this.setState({redirect: true});
 
-        this.props.setCurrentUserOTP(data[0]);
+        //this.props.setCurrentUserOTP(data[0]);
 
         // if otp code was not giving us a error then change redirect to true so we can redirect
         if (data[0].result !== "Error") {
@@ -152,20 +179,33 @@ class OTP extends React.Component {
       });
   };
 
+
+
+
+
   // Resend the SMS From OTP Service
   SMSResend = () => {
     this.setState({ second: 120 });
     this.props.toggleSpinner(true);
+
+    const user = Cookie.get('currentUser');
+    
+    const userObj = JSON.parse(user);
+
+
     const requestOptions = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        authorization: "Bearer  " + this.props.token,
+        authorization: "Bearer  " + userObj.access_token,
       },
-      body: `{"Params":'{"UserID":"${this.props.user_id.toString()}"}'}`,
+      body: JSON.stringify({
+        procname: "PostLoginProcess",
+        params: `{ "UserID": ${userObj.UserID.toString()}, "OTP":"${this.state.SMSCode}" }`,
+      }),
     };
 
-    fetch(`${appConfig.apiEndpoint}/Account/SendOTPSms`, requestOptions)
+    fetch(`${appConfig.apiEndpoint}/BackendEngine`, requestOptions)
       .then(async (response) => {
         this.setState({ resendResult: "" });
         const data = await response.json();
@@ -244,7 +284,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   toggleSpinner: (loading) => dispatch(toggleSpinner(loading)),
-  setCurrentUserOTP: (user) => dispatch(setCurrentUserOTP(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OTP);
