@@ -12,8 +12,7 @@ import { setCurrentUserOTP } from "../../redux/user/user.actions";
 
 import LoadingSpinner from "../loading-spinner/loading-spinner.component";
 import Alert from "../alert/alert.component";
-import Cookie from 'js-cookie';
-
+import Cookie from "js-cookie";
 
 import "./otp.styles.scss";
 
@@ -57,16 +56,14 @@ class OTP extends React.Component {
 
   // getting sms from otp as soon as componentmounts
   componentDidMount() {
+    const user = Cookie.get("currentUser");
 
-    const user = Cookie.get('currentUser');
-    
     const userObj = JSON.parse(user);
 
     console.log(userObj);
     console.log(userObj.access_token);
     console.log(userObj.UserID);
-    
-    
+
     const requestOptions = {
       method: "POST",
       headers: {
@@ -114,20 +111,15 @@ class OTP extends React.Component {
     clearInterval(this.timer);
   }
 
-
-
-
-  // check the sms 
+  // check the sms
   submitHandler = (e) => {
     e.preventDefault();
 
     this.props.toggleSpinner(true);
 
-    const user = Cookie.get('currentUser');
-    
-    const userObj = JSON.parse(user);
+    const user = Cookie.get("currentUser");
 
-    
+    const userObj = JSON.parse(user);
 
     const requestOptions = {
       method: "POST",
@@ -137,10 +129,12 @@ class OTP extends React.Component {
       },
       body: JSON.stringify({
         procname: "LoginOTPCheck",
-        params: `{ "UserID": ${userObj.UserID.toString()}, "OTP":"${this.state.SMSCode}" }`,
+        params: `{ "UserID": ${userObj.UserID.toString()}, "OTP":"${
+          this.state.SMSCode
+        }" }`,
       }),
       //body: `{"Params":'{"UserID":"${this.props.user_id.toString()}","OTP":"${
-        //this.state.SMSCode
+      //this.state.SMSCode
       //}"}'}`,
     };
 
@@ -154,10 +148,13 @@ class OTP extends React.Component {
         //this.props.setCurrentUserOTP(data[0]);
 
         // if otp code was not giving us a error then change redirect to true so we can redirect
-        if (data[0].result !== "Error") {
+        // console.log(data);
+        // console.log(JSON.parse(data)[0].Result.toString().toLowerCase());
+
+        if (JSON.parse(data)[0].Result.toString().toLowerCase() !== "error") {
           this.setState({ redirect: true });
         }
-
+        //TODO show err when the fuckin otp code is not right
         console.log(data);
 
         // check for error response
@@ -179,19 +176,14 @@ class OTP extends React.Component {
       });
   };
 
-
-
-
-
   // Resend the SMS From OTP Service
   SMSResend = () => {
     this.setState({ second: 120 });
     this.props.toggleSpinner(true);
 
-    const user = Cookie.get('currentUser');
-    
-    const userObj = JSON.parse(user);
+    const user = Cookie.get("currentUser");
 
+    const userObj = JSON.parse(user);
 
     const requestOptions = {
       method: "POST",
@@ -201,7 +193,9 @@ class OTP extends React.Component {
       },
       body: JSON.stringify({
         procname: "PostLoginProcess",
-        params: `{ "UserID": ${userObj.UserID.toString()}, "OTP":"${this.state.SMSCode}" }`,
+        params: `{ "UserID": ${userObj.UserID.toString()}, "OTP":"${
+          this.state.SMSCode
+        }" }`,
       }),
     };
 
